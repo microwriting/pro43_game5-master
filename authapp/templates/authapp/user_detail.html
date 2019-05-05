@@ -1,0 +1,43 @@
+{% extends "authapp/base.html" %}
+{% block content %}
+<div class="container main-content mt-5">
+<div class="row main-slot">
+<div class="center-block  mx-auto login">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            <ul class="messages" style="list-style:none; margin-bottom: 0;">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th class="item_title">Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            {% if user.username != user.email %}
+            <tr>
+                <th  class="item_title">User email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th  class="item_title">Family Name</th>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <th  class="item_title">First Name</th>
+                <td>{{ user.first_name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>
+</div>
+{% endblock %}

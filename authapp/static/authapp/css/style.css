@@ -1,0 +1,218 @@
+{% load static %}
+
+
+html{
+    height: 100%;
+}
+
+header{
+   /* We want the header to have a static height,
+   it will always take up just as much space as it needs.  */
+   /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+   flex: 0 0 auto;
+}
+
+footer{
+   /* Like the header, the footer will have a static height - it shouldn't grow or shrink.  */
+   /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+   flex: 0 0 auto;
+}
+.main-content{
+   /* By setting flex-grow to 1, the main content will take up
+   all of the remaining space on the page.
+   The other elements have flex-grow: 0 and won't contest the free space. */
+   /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+   flex: 1 0 auto;
+}
+
+.main-slot{
+    padding: 15px;
+    border-radius: 20px;
+}
+
+
+.row.main_window {
+    border: 2px solid #6610f2;
+    border-radius: 20px;
+}
+
+.box {
+    padding: 10px;
+}
+
+.main-slot{
+    background-color: #ffffff;
+}
+
+.navbar {
+  min-height: 80px;
+}
+
+
+.logo{
+  background-size: contain;
+  height: 40px;
+}
+
+.col-sm-6.slot1 img,
+.col-sm-6.slot2 img{
+    height: 40px;
+}
+
+.p-2.game_window{
+    height: 70px;
+}
+
+.slot_item{
+    height: 40px;
+}
+
+div.table{
+    text-align: right;
+    margin-bottom: 0;
+}
+
+p.display_game,
+p.display_number{
+    margin-bottom: 0;
+}
+
+.display_gamenumber_value{
+    font-size: 2em;
+}
+
+.display_gamenumber{
+    border: 2px solid #F49729;
+    border-radius: 20px;
+}
+
+.display_medal{
+    border: 2px solid #B320BF;
+    border-radius: 20px;
+}
+
+#yourwallet,
+#yourtotalgames,
+#game_count,
+#game_medal,
+#game_count2,
+#game_medal2,
+.game_table{
+    font-family: 'Press Start 2P', cursive;
+}
+
+#deposit,
+#withdraw,
+#deposit2,
+#withdraw2{
+    font-size: 0.4rem;
+}
+
+body > div.container.main-content.mx-auto.mt-5 > div > form > ul{
+    font-size:0.6rem;
+}
+
+.help-block{
+    font-size: 0.4rem;
+}
+
+#hit1_image{
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+}
+
+#hit1{
+    margin-bottom: 0;
+}
+
+#myChart_admin {
+    height:20vh;
+    width:80vw;
+}
+
+#id_turbo_slot1,
+#id_turbo_slot2{
+    width: 20px;
+    height: 20px;
+}
+
+.slot_charactor{
+    justify-content: space-around;
+}
+
+.messege_box{
+    height:20px;
+}
+
+.message_box2 div{
+    height:20px;
+}
+
+.about{
+   font-family: 'Ubuntu', sans-serif;
+}
+.about_img{
+    width:70%;
+}
+
+.disp-block {
+  display: block;
+}
+.blockcenter{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#navbarSupportedContent{
+  background-color: #f8f9fa;
+  z-index: 99999;
+}
+@media (max-width: 991.98px){
+    #navbarSupportedContent{
+        padding: 20px;
+    }
+}
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+
+button.close {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: 0 0;
+  border: 0
+}
+
+.navbar-toggler{
+    cursor: pointer;
+}
+
+.login{
+    width:80%;
+}
+
+#yourwallet,
+#yourtotalgames{
+    text-align: right;
+}
+
+.item_title{
+    font-weight:normal;
+ }

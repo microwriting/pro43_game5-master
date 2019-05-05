@@ -1,0 +1,69 @@
+{% extends "authapp/base.html" %}
+{% load bootstrap %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container mx-auto mt-5">
+        <div class="row main-slot">
+        <div class="about">
+            <h1>About YAMADA SLOT</h1>
+
+            <h2>Overview</h2>
+            <p>This is an online slot game platform made by django-framework and chart.js, ajax. It is made for studying personal and is currently under development.
+            Currently, This project is the experimental project.
+                Although it actually operates, there are many points to be improved.</p>
+            <h2>Description of simulator</h2>
+            <p>This is an online slot simulator which can see increase and decrease of medals by the graph. On the game screen, you can check the history of 100 games, and you can check the history of 2,000 games of each user on the admin screen.
+                The explanation of each function is as follows.</p>
+            <div class="about_yama"><img class ="about_img disp-block blockcenter" src="{% static "app/images/readme.png" %}"></div>
+
+<ol>
+    <li>Game window</li>
+    You can check the actual game picture.
+    <li>Total Games</li>
+    After creating the account of user, count all the total games so far.
+    <li>Your Wallet</li>
+    Display getting number of total medals after creating the account of the user.
+    <li>Payout</li>
+    Since this is a simulator, The Player can choose of payout rates(95%, 100%, 105%).
+    <li>Game Number</li>
+    Display a game counts after depositing into slot game.
+    <li>Medal</li>
+    Display number of medals after depositing into slot game.
+    <li>Bet</li>
+    This button may be called "SPIN". Clicking on this button, three subtracted from the medal, and the game do one time.
+    <li>Deposit</li>
+    It is subtracted 50 medals from "your wallet" and deposited on 50 medals to "medal".
+    <li>Withdraw</li>
+    It will return the medal to "your wallet".
+    <li>Graph</li>
+    Display the history of past 100 games by graph.
+</ol>
+            <p>This platform has a characteristic feature in the admin.</p>
+            <div class="about_yama"><img class ="about_img disp-block blockcenter" src="{% static "app/images/image2.png" %}"></div>
+            <h2>Turbo slot 1</h2>
+            <p>If this function is checked, the probability of bell will rise significantly, The payout rate will be 140%</p>
+            <h2>Turbo slot2</h2>
+<p>If the function is checked, the probability of bell will rise significantly, The payout rate will be 140%
+    The probability of bell fluctuates as follows. Based on 100 games, the probability increases as you approach 100 games, then the probability converges after 100games. The total payout rate is 120%.</p>
+<div class="about_yama"><img class ="about_img disp-block blockcenter" src="{% static "app/images/turbomode2.png" %}"></div>
+
+            <p>If both turbo modes 1 and 2 are checked, 2 takes precedence. (This will be changed to radio button in the future.)</p>
+
+            <p>Currently, I have a plan to improve the following points.</p>
+<ul>
+    <li>I will Improve design on smartphone.</li>
+    <li>I will fix bug in member registration function or login function.</li>
+    <li>Also, modify the overall code to look beautiful.</li>
+    <li>Enhance security. Security is the most important for online gaming platform.</li>
+</ul>
+            <p>When the above is completed, I will do the following.</p>
+<ul>
+    <li>I will implement games that run with javascript.</li>
+    <li>Implement Cryptocurrency settlement function.</li>
+</ul>
+<a href="{% url "authapp:dashboard" %}" role="button" class="btn btn-outline-primary btn-lg btn-block">Go back to main page</a>
+</div>
+        </div>
+    </div>
+{% endblock %}

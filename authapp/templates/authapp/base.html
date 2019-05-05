@@ -1,0 +1,115 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href="//fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous"></script>
+    <link href="{% static 'authapp/css/style.css' %}" rel="stylesheet" type="text/css">
+{#    <link href="{% static 'app/css/game.css' %}" rel="stylesheet" type="text/css">#}
+
+    <title>会員登録サンプル</title>
+</head>
+<style type="text/css">
+        body {
+         font-family: 'Press Start 2P', cursive;
+         background: url('{% static "authapp/images/background2.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+         display: flex;
+        flex-direction: column;
+        height: 100%;
+        }
+</style>
+
+<body>
+    <!-- ナビバー -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+    {% if request.user.is_authenticated %}
+      <a class="navbar-brand" href="{% url 'app:slotmachine' %}"><img class="logo" src="{% static "authapp/images/logo.png" %}"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    {% else %}
+          <a class="navbar-brand" href="{% url 'authapp:login' %}"><img class="logo" src="{% static "authapp/images/logo.png" %}"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    {% endif %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {% if user.is_authenticated %}
+          <li>
+            <a class="nav-item nav-link" href="{% url 'authapp:user_detail' user.pk %}">UserInfo</a>
+          </li>
+          <li>
+            <a class="nav-item nav-link" href="{% url 'authapp:user_update' user.pk %}">UpdateUserInfo</a>
+          </li>
+          <li>
+            <a class="nav-item nav-link" href="{% url 'authapp:password_change' %}">ChangePassword</a>
+          </li>
+          {% endif %}
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li>
+{#          <li class="nav-item">#}
+            {% if request.user.is_authenticated %}
+                <span class="nav-item nav-link pull-right" >{{ request.user.username }}</span>
+            {% else %}
+             {#             <a href="{% url 'authapp:user_create' %}" class="btn btn-success btn-lg btn-block" >会員登録</a>#}
+             <a href="{% url 'authapp:user_create' %}" class="nav-item nav-link pull-right" >CreateAccount</a>
+            {% endif %}
+
+          </li>
+{#          <li class="nav-item">#}
+          <li>
+            {% if request.user.is_authenticated %}
+                <a href="{% url "authapp:logout" %}" class="nav-item nav-link pull-right">Logout</a>
+            {% else %}
+                <a href="{% url "authapp:login" %}" class="nav-item nav-link pull-right">Log-in</a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- メインコンテント -->
+    <div class="container mt-3 main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"#}
+{#            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"#}
+{#            crossorigin="anonymous"></script>#}
+
+
+</body>
+    <footer class="footer">
+        <div class="footer-copyright py-3 text-center bg-light mt-5">
+            © 2018 Copyright:
+            <a href=""> Micro Writing </a>
+        </div>
+    </footer>
+
+
+</html>

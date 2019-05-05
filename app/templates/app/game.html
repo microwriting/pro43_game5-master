@@ -1,0 +1,606 @@
+{% extends "authapp/base.html" %}
+{#{% load bootstrap %}#}
+{% load staticfiles %}
+
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container main-content mx-auto mt-5">
+<div class="row main-slot">
+
+{#<div class="card mx-auto">#}
+{#<div class="card-body">#}
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {% if messages %}
+                <div class="alert alert-warning" role="alert">
+                    <ul class="messages" style="list-style:none; margin-bottom: 0;">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3  wallet_info">
+                <p class="game_table">Your Wallet:</p>
+                <h2 id="yourwallet">{{ dashboard_medals|default:0 }}</h2>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 wallet_info2">
+                <p class="game_table"> Total Games:</p>
+                <h2 id="yourtotalgames">{{ total_games|default:0 }}</h2>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex align-items-center">
+{#                <div class="d-flex flex-row">#}
+                <div class="p-2 game_table"><img class ="slot_item mx-auto" src="{% static "app/images/777.png" %}"><div class="table">+300</div></div>
+                    <div class="p-2 game_table"><img class ="slot_item" src="{% static "app/images/bar.png" %}"><div class="table">+150</div></div>
+                    <div class="p-2 game_table"><img class ="slot_item" src="{% static "app/images/bell.png" %}"><div class="table">+30</div></div>
+{#                </div>#}
+            </div>
+
+    <div class="container">
+    <div class="row main_window">
+
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="box">
+
+                <div class="row">
+                    <div class="col-sm-6 slot1 mb-2"><img src="{% static "app/images/slot1.png" %}"></div>
+                </div>
+                <div class="row">
+                        <form method="POST" action ="" id="game_mode" class="form-inline my-2">{% csrf_token %}
+                            <label for="pro_select" class="">PAYOUT</label>
+                            <select class="form-control ml-3" id="pro_select" name="choice">
+                            <option value="1">95%  </option>
+                            <option value="2" selected>100%</option>
+                            <option value="3">105%</option>
+                            </select>
+                        </form>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 display_gamenumber">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"><p class="display_game game_table">Game</p><p class="display_number game_table">Number:</p></div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 display_gamenumber_value" id="game_count">{{ count }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 display_medal mt-2">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"><p>Medal:</p></div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 display_gamenumber_value" id="game_medal">{{ game_medal1 }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <form action="" method="POST" name="" id="main_form">
+                        {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <input type="button" class="btn btn-block btn-outline-primary my-2" value="bet" id="go">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                  <input type="button" class="btn btn-block btn-outline-primary mb-2" value="deposit" id="deposit">
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <input type="button" class="btn btn-block btn-outline-primary mb-2" value="withdraw" id="withdraw">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+            </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <div class="box">
+                <div class="d-flex flex-column">
+                <div class="messege_box">
+                    <p class="game_message1"></p>
+                </div>
+                    <div class="p-2 game_window">
+                        <div class="d-flex justify-content-around">
+                            <div class="item1">
+                                <img src="{% static "app/images/white_single.png" %}" id="hit1_image" >
+                            </div>
+                            <div class="item2">
+                                <img src="{% static "app/images/white_single.png" %}" id="hit2_image" >
+                            </div>
+                            <div class="item3">
+                                <img src="{% static "app/images/white_single.png" %}" id="hit3_image" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                            <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="box">
+                <div class="row">
+                    <div class="col-sm-6 slot2 mb-2"><img src="{% static "app/images/slot2.png" %}"></div>
+                </div>
+
+                 <div class="row">
+                    <form method="POST" action = "" id="game_mode2" class="form-inline my-2">{% csrf_token %}
+                        <label for="pro_select">PAYOUT</label>
+                        <select class="form-control ml-3" id="pro_select2" name="choice">
+                        <option value="1">95%</option>
+                        <option value="2" selected>100%</option>
+                        <option value="3">105%</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 display_gamenumber">
+                        <div class="row">
+                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"><p class="display_game">Game</p><p class="display_number">Number:</p></div>
+                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 display_gamenumber_value" id="game_count2">{{ dashboard_count2 }}</div>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 display_medal mt-2">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"><p>Medal:</p></div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 display_gamenumber_value" id="game_medal2">{{ dashboard_medals2 }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <form action="" method="POST" name="" id="main_form2">
+                            {% csrf_token %}
+                             <div class="row">
+                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <input type="button"  class="btn btn-block btn-outline-primary my-2" value="bet" id="go2">
+                                 </div>
+                             </div>
+                             <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                  <input type="button" class="btn btn-block btn-outline-primary mb-2" value="deposit" id="deposit2">
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <input type="button" class="btn btn-block btn-outline-primary mb-2" value="withdraw" id="withdraw2">
+                                </div>
+                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="box">
+                     <div class="d-flex flex-column">
+                     <div class="messege_box2" style="height:20px">
+                             <p class="game_message2"></p>
+                     </div>
+                          <div class="p-2 game_window">
+                              <div class="d-flex justify-content-around">
+                                <div class="item4">
+                                    <img src="{% static "app/images/white_single.png" %}" id="hit4_image" >
+                                </div>
+                                <div class="item5">
+                                    <img src="{% static "app/images/white_single.png" %}" id="hit5_image" >
+                                </div>
+                                <div class="item6">
+                                     <img src="{% static "app/images/white_single.png" %}" id="hit6_image" >
+                                </div>
+                              </div>
+                          </div>
+
+                         <div class="p-2">
+                            <canvas id="myChart2" width="400" height="400"></canvas>
+                         </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+{#</div>#}
+{#</div>#}
+</div>
+</div>
+
+
+<script>
+
+$( document ).ready(function() {
+// {#When you press the go button, the count increases by 1, and the medal increases or decreases#}
+    $('#go').click(function(){
+      var game_count1 = parseInt($("#game_count").html());
+      var game_medal1 = parseInt($("#game_medal").html());
+      var hit1 = Boolean(0);
+      var slot_id = 1;
+      var choice = document.getElementById("pro_select");
+      var game_mode = choice.value;
+      {#console.log(game_mode);#}
+      var urls = ["{% url 'app:slotmachine' %}","{% url 'app:chartdata' %}"];
+      console.log(urls);
+      {#for(var i=0; i <urls.length; i++){#}
+        $.ajax({
+            type: "POST",
+            url: urls[0],
+            {#url: "{% url 'app:slotmachine' %}",#}
+            data:{
+             'slot_id' : slot_id,
+             'count': game_count1,
+             'medals': game_medal1,
+             'hit1' : hit1,
+             'game_mode':game_mode,
+             'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()
+            },
+            dataType:'json',
+            success: function (game_count1) {
+                hit1_value = game_count1["hit1"];
+                console.log(hit1_value);
+                {#console.log(game_count1["first_item"]);#}
+                if (hit1_value == "Seven")
+                  $("#hit1_image").attr("src", '{% static "app/images/seven_single.png" %}'),
+                  $("#hit2_image").attr("src", '{% static "app/images/seven_single.png" %}'),
+                  $("#hit3_image").attr("src", '{% static "app/images/seven_single.png" %}');
+                else if (hit1_value == "Bar")
+                  $("#hit1_image").attr("src", '{% static "app/images/bar_single.png" %}'),
+                  $("#hit2_image").attr("src", '{% static "app/images/bar_single.png" %}'),
+                  $("#hit3_image").attr("src", '{% static "app/images/bar_single.png" %}');
+                else if (hit1_value == "Bell")
+                  $("#hit1_image").attr("src", '{% static "app/images/bell_single.png" %}'),
+                  $("#hit2_image").attr("src", '{% static "app/images/bell_single.png" %}'),
+                  $("#hit3_image").attr("src", '{% static "app/images/bell_single.png" %}');
+                else if (hit1_value =="Empty")
+                  $("#hit1_image").attr("src", '{% static "app/images/empty_single.png" %}'),
+                  $("#hit2_image").attr("src", '{% static "app/images/empty_single.png" %}'),
+                  $("#hit3_image").attr("src", '{% static "app/images/empty_single.png" %}');
+                else
+                {% static "" as baseUrl %}
+                  $("#hit1_image").attr("src", '{{ baseUrl }}'+ game_count1["first_item"]+'.png'),
+                  $("#hit2_image").attr("src", '{{ baseUrl }}'+ game_count1["second_item"]+'.png'),
+                  $("#hit3_image").attr("src", '{{ baseUrl }}'+ game_count1["third_item"]+'.png');
+
+                $("#game_count").html(game_count1["count"]);
+                $("#game_medal").html(game_count1["medals"]);
+                $(".game_message1").html(game_count1["message"]);
+                callChartAPI();
+            }
+        });
+      {#console.log(slot_id, game_count)#}
+    });
+
+// {#When you press the withdraw button, the medal is reset which display medal window and incement medals in wallet #}
+     $('#deposit').click(function(){
+      var game_medal1 = parseInt($("#game_medal").html());
+      var my_wallet1 = parseInt($("#yourwallet").html());
+      var slot_id = 1;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'app:deposit' %}",
+            data:{
+             'slot_id' : slot_id,
+             'medals': game_medal1,
+             'dashboard_medals': my_wallet1,
+             // {#'hit1' : hit1,#}
+             'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()
+            },
+            dataType:'json',
+            success: function (deposit_medals) {
+                $("#game_medal").html(deposit_medals["medals"]);//応答時は、要素を#game_countに反映
+                $("#yourwallet").html(deposit_medals["dashboard_medals"]);
+                $("#game_message1").html(deposit_medals["message"]);
+            }
+        });
+      {#console.log(slot_id, game_count)#}
+    });
+
+// {#When you press the deposit button, the medal increases or decreases#}
+     $('#withdraw').click(function(){
+      var game_medal1 = parseInt($("#game_medal").html());
+      var my_wallet1 = parseInt($("#yourwallet").html());
+      var game_count1 = parseInt($("#game_count").html());
+      var total_games = parseInt($("#yourtotalgames").html());
+      var slot_id = 1;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'app:withdraw' %}",
+            data:{
+             'slot_id' : slot_id,
+             'medals': game_medal1,
+             'dashboard_medals': my_wallet1,
+             'count': game_count1,
+             'total_games': total_games,
+             'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()
+            },
+            dataType:'json',
+            success: function (withdraw_medals) {
+                $("#game_medal").html(withdraw_medals["medals"]);//応答時は、要素を#game_countに反映
+                $("#yourwallet").html(withdraw_medals["dashboard_medals"]);
+                $("#game_count").html(withdraw_medals["count"]);
+                $("#yourtotalgames").html(withdraw_medals["total_games"]);
+                destroy=true;
+            }
+        });
+      // {#console.log(slot_id, game_count)#}
+    });
+
+
+    $('#go2').click(function(){
+      var game_count2 = parseInt($("#game_count2").html());
+      var game_medal2 = parseInt($("#game_medal2").html());
+      // {#var hit2 = Boolean(0);#}
+      var slot_id = 2;
+      var choice = document.getElementById("pro_select2");
+      var game_mode2 = choice.value;
+      console.log(game_mode2);
+        $.ajax({
+            type: "POST",
+            url: "{% url 'app:slotmachine' %}",
+            data:{
+             'slot_id' : slot_id,
+             'count2': game_count2,
+             'medals2': game_medal2,
+             // {#'hit2' : hit2,#}
+             'game_mode':game_mode2,
+             {#'game_mode2':game_mode2,#}
+             'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()
+            },
+            dataType:'json',
+            success: function (game_count2) {
+                hit1_value = game_count2["hit1"];
+                console.log(hit1_value);
+                if (hit1_value == "Seven")
+                  $("#hit4_image").attr("src", '{% static "app/images/seven_single.png" %}'),
+                  $("#hit5_image").attr("src", '{% static "app/images/seven_single.png" %}'),
+                  $("#hit6_image").attr("src", '{% static "app/images/seven_single.png" %}');
+                else if (hit1_value == "Bar")
+                  $("#hit4_image").attr("src", '{% static "app/images/bar_single.png" %}'),
+                  $("#hit5_image").attr("src", '{% static "app/images/bar_single.png" %}'),
+                  $("#hit6_image").attr("src", '{% static "app/images/bar_single.png" %}');
+                else if (hit1_value == "Bell")
+                  $("#hit4_image").attr("src", '{% static "app/images/bell_single.png" %}'),
+                  $("#hit5_image").attr("src", '{% static "app/images/bell_single.png" %}'),
+                  $("#hit6_image").attr("src", '{% static "app/images/bell_single.png" %}');
+               else if (hit1_value =="Empty")
+                  $("#hit4_image").attr("src", '{% static "app/images/empty_single.png" %}'),
+                  $("#hit5_image").attr("src", '{% static "app/images/empty_single.png" %}'),
+                  $("#hit6_image").attr("src", '{% static "app/images/empty_single.png" %}');
+                else
+                {% static "" as baseUrl %}
+                  $("#hit4_image").attr("src", '{{ baseUrl }}'+ game_count2["first_item"]+'.png'),
+                  $("#hit5_image").attr("src", '{{ baseUrl }}'+ game_count2["second_item"]+'.png'),
+                  $("#hit6_image").attr("src", '{{ baseUrl }}'+ game_count2["third_item"]+'.png');
+
+                $("#game_count2").html(game_count2["count"]);
+                $("#game_medal2").html(game_count2["medals"]);//応答時は、要素を#game_countに反映
+                $(".game_message2").html(game_count2["message"]);
+                callChartAPI2();
+            }
+        });
+     console.log(slot_id, game_count2)
+    });
+
+// {#When you press the withdraw button, the medal is reset which display medal window and incement medals in wallet #}
+     $('#deposit2').click(function(){
+      var game_medal2 = parseInt($("#game_medal2").html());
+      var my_wallet1 = parseInt($("#yourwallet").html());
+      var slot_id = 2;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'app:deposit' %}",
+            data:{
+             'slot_id' : slot_id,
+             'medals': game_medal2,
+             'dashboard_medals': my_wallet1,
+             'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()
+            },
+            dataType:'json',
+            success: function (deposit_medals2) {
+                $("#game_medal2").html(deposit_medals2["medals"]);//応答時は、要素を#game_countに反映
+                $("#yourwallet").html(deposit_medals2["dashboard_medals"]);
+                $("#game_message2").html(deposit_medals["message"]);
+            }
+        });
+      // {#console.log(slot_id, game_count)#}
+    });
+
+// {#When you press the deposit button, the medal increases or decreases#}
+     $('#withdraw2').click(function(){
+      var game_medal1 = parseInt($("#game_medal2").html());
+      var my_wallet1 = parseInt($("#yourwallet").html());
+      var game_count1 = parseInt($("#game_count2").html());
+      var total_games = parseInt($("#yourtotalgames").html());
+      var slot_id = 2;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'app:withdraw' %}",
+            data:{
+             'slot_id' : slot_id,
+             'medals': game_medal1,
+             'dashboard_medals': my_wallet1,
+             'count': game_count1,
+             'total_games': total_games,
+             'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()
+            },
+            dataType:'json',
+            success: function (withdraw_medals2) {
+                $("#game_medal2").html(withdraw_medals2["medals"]);//応答時は、要素を#game_countに反映
+                $("#yourwallet").html(withdraw_medals2["dashboard_medals"]);
+                $("#game_count2").html(withdraw_medals2["count"]);
+                $("#yourtotalgames").html(withdraw_medals2["total_games"]);
+            }
+        });
+      // {#console.log(slot_id, game_count)#}
+    });
+
+var endpoint ='slot/api/chart/data';
+var defaultData = [];
+var labels = [];
+
+function callChartAPI() {
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function (data) {
+            // console.log(data);
+            labels = data.labels;　//data と　キーの組み合わせ
+            defaultData = data.defaults;
+            console.log("aaa:",defaultData);
+            setChart();
+
+        },
+        error: function (error_data) {
+            console.log("error");
+            console.log(error_data)
+        }
+    });
+
+}
+
+callChartAPI();
+
+function callChartAPI2() {
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function (data) {
+            // console.log(data);
+            labels = data.labels2;
+            defaultData = data.defaults2;
+            setChart2();
+
+        },
+        error: function (error_data) {
+            console.log("error");
+            console.log(error_data)
+        }
+    });
+
+}
+
+callChartAPI2();
+
+
+
+function setChart() {
+    console.log(defaultData);
+    var tick_index = 0;
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels : labels,
+            datasets: [{
+                label: '# of medals',
+                data: defaultData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            animation :false,
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        userCallback: function (value, index) {
+                            label = index / 20 * 20;
+                            return label;
+                        },
+                        maxTicksLimit: 5,
+                        maxRotation: 0
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min : 0,
+                        max : 1000,
+                        stepSize :200,
+                        beginAtZero: false
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
+function setChart2() {
+    var ctx2 = document.getElementById("myChart2");
+    var myChart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '# of medals',
+                data: defaultData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            animation :false,
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        userCallback: function (value, index) {
+                            label = index / 20 * 20;
+                            return label;
+                        },
+                        maxTicksLimit: 5,
+                        maxRotation: 0
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min : 0,
+                        max : 1000,
+                        stepSize :200,
+                        beginAtZero: false
+                    }
+                }]
+            }
+        }
+    });
+}
+});
+</script>
+
+{% endblock %}

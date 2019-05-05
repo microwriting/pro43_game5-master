@@ -1,0 +1,27 @@
+{% extends "authapp/base.html" %}
+{#{% load bootstrap %}#}
+{% load static %}
+
+{% block title %}Log-in{% endblock %}
+{% block content %}
+
+<div class="container main-content mt-5">
+    <div class="row main-slot">
+    <div class="center-block  mx-auto login">
+        <h1 class="text-center">Log-in</h1>
+            <p>Please, use the following form to log-in:</p>
+                <form action="" method="POST">
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+                        {{ field }}
+                        {{ field.errors }}
+                        <hr>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success btn-block" >Login</button>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    {% csrf_token %}
+                </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

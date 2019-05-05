@@ -1,0 +1,14 @@
+{% extends "authapp/base.html" %}
+{% block content %}
+    <div class="container main-content mt-5">
+    <div class="row main-slot">
+    <div class="center-block  mx-auto login">
+        <p>
+            本登録が完了しました。<br>
+            登録されたメールアドレスとパスワードでログインしてください。<br>
+            <a class="btn btn-primary btn-lg" href="{% url 'authapp:login' %}">ログイン</a>
+        </p>
+    </div>
+    </div>
+    </div>
+{% endblock %}

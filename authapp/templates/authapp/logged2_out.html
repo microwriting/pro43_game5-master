@@ -1,0 +1,14 @@
+{% extends "authapp/base.html" %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+<div class="container main-content mx-auto mt-5">
+<div class="row main-slot">
+
+        <h1>Logged out</h1>
+        <p>You have been successfully logged out. You can <a href="{% url "authapp:login" %}">log-in again</a>.</p>
+  </div>
+</div>
+
+{% endblock %}
