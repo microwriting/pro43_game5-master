@@ -23,8 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7$ou*@+3h5hut=rh0&0v=7#7p0_kjrn16%0&s&@xzqfghs=aaq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -75,28 +75,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pro43_game5.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-import pymysql
-# pymysql.install_as_MySQLdb()
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'pro43',  # データベース名
-#         'USER': 'root',  # ユーザ名
-#         'PASSWORD': 'firefox345',  # ぱすわど
-#         'HOST': 'localhost',  # サーバのIPアドレスやホストを。空欄はローカルホスト
-#         'PORT': '3306',
-#     }
-# }
 
 # pymysql.install_as_MySQLdb()
 DATABASES = {
@@ -156,7 +134,7 @@ LOGIN_URL = reverse_lazy('authapp:login')
 LOGIN_REDIRECT_URL = reverse_lazy('authapp:dashboard')
 
 
-MEDIA_URL='/app/static/images/'
+MEDIA_URL='/authapp/static/images/'
 MEDIA_ROOT= os.path.join(BASE_DIR,'images')
 
 AUTH_USER_MODEL = 'authapp.User'
@@ -175,8 +153,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass
