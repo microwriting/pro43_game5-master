@@ -9,3 +9,12 @@ out
 gen
 .gitignore
 .idea/workspace.xml
+environ.env
+app/__pycache__/
+app/migrations/__pycache__/
+authapp/__pycache__/
+authapp/migrations/__pycache__/
+pro43_game5/__pycache__/
+
+authapp/migrations
+app/migrations
